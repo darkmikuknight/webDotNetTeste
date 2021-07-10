@@ -73,5 +73,10 @@ namespace webDotNet.Business
                 throw new Exception("Não foi possível excluir o registro de reprodução", e);
             }
         }
+
+        public List<Pagamento> ListAll()
+        {
+            return _db.Pagamentos.OrderByDescending(x => x.DataPagamento).ToList();
+        }
     }
 }

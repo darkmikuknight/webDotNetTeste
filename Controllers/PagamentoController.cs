@@ -3,6 +3,8 @@ using System.Text.Encodings.Web;
 using Microsoft.Extensions.DependencyInjection;
 using webDotNet.Business;
 using webDotNet.Models;
+using webDotNet.Models.Support;
+using System.Collections.Generic;
 
 namespace webDotNet.Controllers
 {
@@ -32,13 +34,34 @@ namespace webDotNet.Controllers
             else
             {
                 _pagamento.SavePagamento(model);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Listar");
             }
         }
 
         public IActionResult Listar()
         {
-            return View();
+            List<Pagamento> pagamentos = _pagamento.ListAll();
+            return View(pagamentos);
         }
+
+        // public ActionResult GetPagamentosToDataTable(DataTableAjaxPostModel model)
+        // {
+        //     // action inside a standard controller
+        //     int filteredResultsCount;
+        //     int totalResultsCount;
+
+        //     DataTableFilter filter = GetFilterDataTable();
+        //     var res = _fazenda.ListToDataTable(model, out filteredResultsCount, out totalResultsCount, filter);
+
+        //     return new JsonResult(new
+        //     {
+        //         // this is what datatables wants sending back
+        //         model.draw,
+        //         recordsTotal = totalResultsCount,
+        //         recordsFiltered = filteredResultsCount,
+        //         data = res,
+        //         iTotalDisplayRecords = totalResultsCount,
+        //     });
+        // }
     }
 }
