@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using webDotNet.Business;
 
 namespace webDotNet
 {
@@ -26,6 +27,7 @@ namespace webDotNet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplicationDB>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<PagamentoBusiness, PagamentoBusiness>();
             services.AddControllersWithViews();
         }
 
