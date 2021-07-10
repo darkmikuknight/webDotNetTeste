@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProjetosDonete\\webDotNet\\webDotNet.csproj": {}
+    "d:\\ProjetosDonete\\webDotNet\\webDotNet.csproj": {}
   },
   "projects": {
-    "D:\\ProjetosDonete\\webDotNet\\webDotNet.csproj": {
+    "d:\\ProjetosDonete\\webDotNet\\webDotNet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjetosDonete\\webDotNet\\webDotNet.csproj",
+        "projectUniqueName": "d:\\ProjetosDonete\\webDotNet\\webDotNet.csproj",
         "projectName": "webDotNet",
-        "projectPath": "D:\\ProjetosDonete\\webDotNet\\webDotNet.csproj",
+        "projectPath": "d:\\ProjetosDonete\\webDotNet\\webDotNet.csproj",
         "packagesPath": "C:\\Users\\sonya\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjetosDonete\\webDotNet\\obj\\",
+        "outputPath": "d:\\ProjetosDonete\\webDotNet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sonya\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -35,6 +35,20 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
