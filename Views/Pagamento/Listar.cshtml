@@ -53,16 +53,7 @@
     } );
 
     function searchText() {
-        console.log('teste')
-        $.post("/Pagamento/FilterPagamento", {
-            srchText: $("#srchText").val()
-        })
-            .done(function (data) {
-                @* console.log(isSuccess)
-                if (data.isSuccess) {
-                    window.location.href = window.location.href + "Pagamento/Listar";
-                } *@
-            });
+        window.location.replace(window.location.origin + "/Pagamento/Listar?srchText="+ $("#srchText").val());
     }
 </script>
 

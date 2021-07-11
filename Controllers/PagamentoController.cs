@@ -25,7 +25,7 @@ namespace webDotNet.Controllers
         {
             ModelValidationError results = new ModelValidationError();
 
-            if(!_pagamento.ValidateCadastro(model, out string errorMsg, results))
+            if (!_pagamento.ValidateCadastro(model, out string errorMsg, results))
             {
                 ViewBag.ErrorMessage = errorMsg;
                 results.UpdateModelState(ModelState);
@@ -38,17 +38,11 @@ namespace webDotNet.Controllers
             }
         }
 
-        public IActionResult Listar(List<Pagamento> pagList = null)
+        [HttpGet]
+        public IActionResult Listar(string srchText = null)
         {
-            List<Pagamento> pagamentos = pagList.Count == 0 ? _pagamento.ListAll() : pagList;
+            List<Pagamento> pagamentos = string.IsNullOrEmpty(srchText) ? _pagamento.ListAll() : _pagamento.ListFilteredPagamento(srchText);;
             return View(pagamentos);
-        }
-
-        [HttpPost]
-        public void FilterPagamento(string srchText)
-        {
-            List<Pagamento> pagamentos = _pagamento.ListFilteredPagamento(srchText);
-            Listar(pagamentos);
         }
     }
 }
