@@ -37,8 +37,7 @@ namespace webDotNet.Business
                 isOk = false;
             }
 
-            DateTime dateValue = Convert.ToDateTime(model.DataPagamento);
-            if (dateValue.Equals(null)) // TODO Pensar em outra maneira de verificar isso sem usar viewModel
+            if (model.DataPagamento.Date == new DateTime().Date)
             {
                 results.Add(nameof(Pagamento.DataPagamento), "A data informada é inválida.");
                 errorMsg = "A data informada é inválida.";
