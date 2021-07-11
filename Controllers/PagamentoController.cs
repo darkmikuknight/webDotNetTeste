@@ -38,30 +38,17 @@ namespace webDotNet.Controllers
             }
         }
 
-        public IActionResult Listar()
+        public IActionResult Listar(List<Pagamento> pagList = null)
         {
-            List<Pagamento> pagamentos = _pagamento.ListAll();
+            List<Pagamento> pagamentos = pagList.Count == 0 ? _pagamento.ListAll() : pagList;
             return View(pagamentos);
         }
 
-        // public ActionResult GetPagamentosToDataTable(DataTableAjaxPostModel model)
-        // {
-        //     // action inside a standard controller
-        //     int filteredResultsCount;
-        //     int totalResultsCount;
-
-        //     DataTableFilter filter = GetFilterDataTable();
-        //     var res = _fazenda.ListToDataTable(model, out filteredResultsCount, out totalResultsCount, filter);
-
-        //     return new JsonResult(new
-        //     {
-        //         // this is what datatables wants sending back
-        //         model.draw,
-        //         recordsTotal = totalResultsCount,
-        //         recordsFiltered = filteredResultsCount,
-        //         data = res,
-        //         iTotalDisplayRecords = totalResultsCount,
-        //     });
-        // }
+        [HttpPost]
+        public void FilterPagamento(string srchText)
+        {
+            List<Pagamento> pagamentos = _pagamento.ListFilteredPagamento(srchText);
+            Listar(pagamentos);
+        }
     }
 }

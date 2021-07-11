@@ -3,13 +3,30 @@
 @using Microsoft.AspNetCore.Http
 @using System.Globalization
 @model IEnumerable<webDotNet.Models.Pagamento>
-@* @model webDotNet.Models.Pagamento *@
 
 @{ Layout = "_Layout"; }
+@{ double total = 0; }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
- @* <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> *@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+<style>
+    #title {
+        display: flex;
+        justify-content: center;
+    }
+    #srchText {
+        width: auto;
+        margin-left: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    #btnSrch {
+        width: auto;
+        height: auto;
+        margin-left: 0.5rem;
+        margin-top: 0.4rem;
+    }
+</style>
 
 <script>
     $(document).ready( function () {
@@ -34,7 +51,34 @@
             },
         });
     } );
+
+    function searchText() {
+        console.log('teste')
+        $.post("/Pagamento/FilterPagamento", {
+            srchText: $("#srchText").val()
+        })
+            .done(function (data) {
+                @* console.log(isSuccess)
+                if (data.isSuccess) {
+                    window.location.href = window.location.href + "Pagamento/Listar";
+                } *@
+            });
+    }
 </script>
+
+<div id="title"><h2>Listagem dos Pagamentos</h2></div>
+
+<div style="padding-bottom: 1rem;">
+    <div class="card mt-2">
+        <div class="card-body py-0">
+            <fieldset style="display: flex;" class="mb-3 mt-3 text-left">
+                <h3>Filtar por: </h3>
+                <input type="text" id="srchText" placeholder="..." class="form-control form-control-sm w-15"/>
+                <input type="button" id="btnSrch" class="btn bg-primary btn-sm" value="Pesquisar" onclick="searchText()"/>
+            </fieldset>
+        </div>
+    </div>
+</div>
 
 <table id="pagamentos" class="table table-striped table-bordered">
     <thead>
@@ -47,6 +91,7 @@
     </thead>
     <tbody>
         @foreach(var pagamento in Model){
+            { total += pagamento.Valor; }
             <tr>
                 <td>@pagamento.Valor</td>
                 <td>@pagamento.DataPagamento</td>
@@ -63,3 +108,14 @@
         }
     </tbody>
 </table>
+
+<div class="card mt-2">
+    <div class="card-body py-0">
+        <fieldset class="mb-3 mt-3 text-left">
+            <div>
+                <label style="font-weight: 600;">Valor Total: </label>
+                <label>@total</label>
+            </div>
+        </fieldset>
+    </div>
+</div>

@@ -38,7 +38,7 @@ namespace webDotNet.Business
             }
 
             DateTime dateValue = Convert.ToDateTime(model.DataPagamento);
-            if(dateValue.Equals(null))
+            if(dateValue.Equals(null)) // Pensar em outra maneira de verificar isso sem usar viewModel
             {
                 results.Add(nameof(Pagamento.DataPagamento), "A data informada é inválida.");
                 errorMsg = "A data informada é inválida.";
@@ -70,13 +70,20 @@ namespace webDotNet.Business
             } 
             catch (Exception e)
             {
-                throw new Exception("Não foi possível excluir o registro de reprodução", e);
+                throw new Exception("Não foi possível salvar o registro de pagamento", e);
             }
         }
 
         public List<Pagamento> ListAll()
         {
             return _db.Pagamentos.OrderByDescending(x => x.DataPagamento).ToList();
+        }
+
+        public List<Pagamento> ListFilteredPagamento(string srchText)
+        {
+            return _db.Pagamentos.OrderByDescending(x => x.DataPagamento)
+                    .Where(x => x.Descriacao.Contains(srchText) || x.ObraAssociada.Contains(srchText))
+                    .ToList();
         }
     }
 }
